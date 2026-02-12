@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>14/2 - Nguyễn Hà Thảo Ngọc</title>
+
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+    text-align:center;
+    color:white;
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    margin-top:100px;
+}
+
+h1{
+    font-size:40px;
+}
+
+p{
+    font-size:20px;
+    width:70%;
+    margin:20px auto;
+    line-height:1.6;
+}
+
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    background:white;
+    color:#ff4b7d;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+.heart{
+    position:fixed;
+    top:-10px;
+    font-size:20px;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+}
+
+.floating-heart{
+    position:absolute;
+    font-size:30px;
+    animation:float 1.5s ease-out forwards;
+}
+
+@keyframes float{
+    to{
+        transform:translateY(-150px);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Happy Valentine 14/2 💖</h1>
+    <h2>Nguyễn Hà Thảo Ngọc</h2>
+    <p>
+        Chúc em một ngày Valentine thật ấm áp và hạnh phúc.  
+        Mong rằng mỗi ngày trôi qua đều mang đến cho em niềm vui,  
+        những nụ cười rạng rỡ và thật nhiều điều ngọt ngào.  
+        Cảm ơn em vì đã xuất hiện và làm thế giới này trở nên đặc biệt hơn.
+    </p>
+
+    <button onclick="createFloatingHeart()">Nhấn để nhận điều bất ngờ 💝</button>
+</div>
+
+<script>
+// Tim rơi liên tục
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(3+Math.random()*3)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,300);
+
+// Tim bay khi bấm nút
+function createFloatingHeart(){
+    for(let i=0;i<8;i++){
+        const heart=document.createElement("div");
+        heart.classList.add("floating-heart");
+        heart.innerHTML="❤️";
+        heart.style.left="50%";
+        heart.style.top="60%";
+        heart.style.marginLeft=(Math.random()*100-50)+"px";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),1500);
+    }
+}
+</script>
+
+</body>
+</html>
