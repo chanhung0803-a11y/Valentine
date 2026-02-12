@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Valentine 💖</title>
+
 <style>
 body{
     margin:0;
@@ -17,194 +18,61 @@ body{
     color:#fff;
 }
 
-button{
-    padding:10px 20px;
-    border:none;
-    border-radius:25px;
-    cursor:pointer;
-    font-size:16px;
+/* TIM RƠI */
+.fall-heart{
+    position:fixed;
+    top:-10px;
+    font-size:18px;
+    animation:fall linear forwards;
+}
+@keyframes fall{
+    to{ transform:translateY(100vh); opacity:0; }
 }
 
+/* Ẩn */
 .hidden{ display:none; }
 
-/* Phong thư */
+/* BAO THƯ */
 .envelope{
-    width:200px;
-    height:130px;
-    background:white;
+    width:320px;
+    height:200px;
+    background:linear-gradient(145deg,#fff,#ffe6ec);
     position:relative;
+    border-radius:10px;
     cursor:pointer;
-    border-radius:5px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+    transition:0.5s;
 }
+.envelope:hover{ transform:scale(1.05); }
+
 .envelope:before{
     content:"";
     position:absolute;
-    top:-65px;
+    top:-100px;
     left:0;
     width:0;
     height:0;
-    border-left:100px solid transparent;
-    border-right:100px solid transparent;
-    border-bottom:65px solid white;
+    border-left:160px solid transparent;
+    border-right:160px solid transparent;
+    border-bottom:100px solid #fff;
 }
 .envelope-text{
     position:absolute;
     top:40%;
     width:100%;
     color:#ff4b7d;
+    font-size:20px;
     font-weight:bold;
 }
 
-/* Nội dung thư */
+/* LÁ THƯ */
 .letter{
     background:white;
     color:#ff4b7d;
-    padding:30px;
-    border-radius:15px;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Hiệu ứng chuyển cảnh tim */
-.transition-heart{
-    position:fixed;
-    font-size:40px;
-    animation:cover 1s forwards;
-}
-@keyframes cover{
-    to{
-        transform:scale(5);
-        opacity:0;
-    }
-}
-
-/* Khu vực tim */
-#heartContainer{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:20px;
-    max-width:500px;
-}
-
-.heart{
-    font-size:40px;
-    cursor:pointer;
-    transition:0.3s;
-}
-.heart:hover{ transform:scale(1.2); }
-
-.message{
-    position:absolute;
-    bottom:20px;
-    font-size:18px;
-    width:80%;
-}
-
-.final{
-    font-size:20px;
-    max-width:600px;
-}
-.signature{
-    margin-top:20px;
-    font-style:italic;
-}
-</style>
-</head>
-<body>
-
-<!-- Phong thư -->
-<div id="start">
-    <div class="envelope" onclick="openLetter()">
-        <div class="envelope-text">Nhấn để mở 💌</div>
-    </div>
-</div>
-
-<!-- Lá thư -->
-<div id="letter" class="hidden">
-    <div class="letter">
-        <h2>Happy Valentine 14/2 💖</h2>
-        <h3>Nguyễn Hà Thảo Ngọc</h3>
-        <button onclick="nextPage()">Next ➜</button>
-    </div>
-</div>
-
-<!-- Trang tim -->
-<div id="heartsPage" class="hidden">
-    <div id="heartContainer"></div>
-    <div class="message" id="message"></div>
-</div>
-
-<!-- Lời cuối -->
-<div id="finalPage" class="hidden final">
-    <p>
-        Cảm ơn bạn đã kiên nhẫn bấm từng trái tim của tui.  
-        Cảm ơn vì đã xuất hiện và làm thanh xuân này trở nên đặc biệt.  
-        Tui hứa sẽ luôn yêu Thảo Ngọc thật nhiều,  
-        luôn trân trọng và thương iuu dấu của tui mỗi ngày 💖
-    </p>
-    <div class="signature">
-        Người yêu Thảo Ngọc nhất thế giới  
-        <br>Hồ Lê Chấn Hưng
-    </div>
-</div>
-
-<script>
-function openLetter(){
-    document.getElementById("start").classList.add("hidden");
-    document.getElementById("letter").classList.remove("hidden");
-}
-
-function nextPage(){
-    // tạo hiệu ứng tim che màn hình
-    for(let i=0;i<30;i++){
-        let heart=document.createElement("div");
-        heart.innerHTML="💖";
-        heart.className="transition-heart";
-        heart.style.left=Math.random()*100+"vw";
-        heart.style.top=Math.random()*100+"vh";
-        document.body.appendChild(heart);
-        setTimeout(()=>heart.remove(),1000);
-    }
-
-    setTimeout(()=>{
-        document.getElementById("letter").classList.add("hidden");
-        document.getElementById("heartsPage").classList.remove("hidden");
-        createHearts();
-    },800);
-}
-
-const wishes=[
-"Tui chúc bạn luôn cười thật nhiều nha cục dàng 💕",
-"Mong iuu dấu của tui lúc nào cũng hạnh phúc ✨",
-"Tui thương bạn hơn hôm qua và ít hơn ngày mai 💖",
-"Cục dàng của tui phải luôn mạnh khỏe đó nha 🥰",
-"Tui hứa sẽ luôn ở bên bạn 💞",
-"Valentine này và nhiều năm sau nữa, tui vẫn chọn bạn 💘"
-];
-
-let count=0;
-
-function createHearts(){
-    const container=document.getElementById("heartContainer");
-    wishes.forEach((wish,i)=>{
-        let heart=document.createElement("div");
-        heart.className="heart";
-        heart.innerHTML="❤️";
-        heart.style.color=`hsl(${Math.random()*360},80%,60%)`;
-        heart.onclick=function(){
-            document.getElementById("message").innerText=wish;
-            heart.remove();
-            count++;
-            if(count===wishes.length){
-                setTimeout(()=>{
-                    document.getElementById("heartsPage").classList.add("hidden");
-                    document.getElementById("finalPage").classList.remove("hidden");
-                },1500);
-            }
-        };
-        container.appendChild(heart);
-    });
-}
-</script>
-
-</body>
-</html>
+/* TRANG TIM */
+#heart
