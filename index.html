@@ -18,7 +18,7 @@ body{
     color:#fff;
 }
 
-.hidden{ display:none; }
+.hidden{ display:none !important; }
 
 /* TIM RƠI NỀN */
 .fall-heart{
@@ -53,14 +53,11 @@ button{
     box-shadow:0 15px 35px rgba(0,0,0,0.3);
 }
 
-/* TAM GIÁC NẰM TRONG */
 .envelope:before{
     content:"";
     position:absolute;
     top:0;
     left:0;
-    width:0;
-    height:0;
     border-left:190px solid transparent;
     border-right:190px solid transparent;
     border-top:120px solid #f5f5f5;
@@ -75,8 +72,6 @@ button{
     font-size:20px;
 }
 
-/* ================= LÁ THƯ ================= */
-
 .letter{
     background:white;
     color:#ff4b7d;
@@ -87,55 +82,54 @@ button{
     max-width:450px;
 }
 
-/* ================= CÂY ================= */
+/* ================= CÂY TO HƠN ================= */
 
 .tree{
     position:relative;
-    width:300px;
-    height:380px;
-    margin-top:10px;
+    width:380px;
+    height:480px;
 }
 
-/* TÁN SÁT THÂN */
+/* TÁN */
 .tree::before{
     content:"";
     position:absolute;
-    top:40px;
+    top:20px;
     left:50%;
     transform:translateX(-50%);
-    width:260px;
-    height:200px;
+    width:330px;
+    height:260px;
     background:radial-gradient(circle at 30% 30%, #5edc72, #2e8b57);
     border-radius:50%;
 }
 
-/* THÂN SÁT LÁ */
+/* THÂN */
 .trunk{
     position:absolute;
     bottom:0;
     left:50%;
     transform:translateX(-50%);
-    width:45px;
-    height:180px;
+    width:60px;
+    height:220px;
     background:linear-gradient(#8b5e3c,#5c3a21);
-    border-radius:25px;
+    border-radius:30px;
 }
 
-/* TIM TREO */
+/* TIM */
 .tree-hearts{
     position:absolute;
     top:80px;
     left:50%;
     transform:translateX(-50%);
-    width:220px;
+    width:280px;
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    gap:25px;
+    gap:35px;
 }
 
 .tree-heart{
-    font-size:42px;
+    font-size:48px;
     cursor:pointer;
     transition:0.3s;
 }
@@ -145,20 +139,19 @@ button{
 }
 @keyframes drop{
     to{
-        transform:translateY(200px);
+        transform:translateY(260px);
         opacity:0;
     }
 }
 
-/* MESSAGE */
 .message-box{
-    margin-top:15px;
+    margin-top:20px;
     background:white;
     color:#ff4b7d;
     padding:15px;
     border-radius:20px;
     min-height:60px;
-    width:320px;
+    width:340px;
 }
 
 /* ================= KẾT ================= */
@@ -193,7 +186,7 @@ setInterval(falling,500);
 
 <!-- CÂU HỎI -->
 <div id="questionPage">
-    <div style="font-size:80px;">🐱💕</div>
+    <div style="font-size:80px;">🐾😺💗</div>
     <h2>Ngọc có iuu Hưng hongg? 🥺💖</h2>
 
     <button id="yesBtn" onclick="startProgram()" 
@@ -208,7 +201,7 @@ setInterval(falling,500);
 
 <!-- BAO THƯ -->
 <div id="start" class="hidden">
-    <div style="margin-bottom:30px;font-size:20px;position:relative;z-index:2;">
+    <div style="margin-bottom:30px;font-size:20px;">
         hihi tui cũng iu Thảo Ngọc nhiều lắm 💕  
         <br>Tui có món quà cho bn nè 🎁
     </div>
@@ -227,14 +220,17 @@ setInterval(falling,500);
     </div>
 </div>
 
-<!-- CÂY (CHỈ XUẤT HIỆN Ở ĐÂY) -->
-<div id="heartsPage" class="hidden" style="display:flex;flex-direction:column;align-items:center;">
-    <div class="tree">
-        <div class="trunk"></div>
-        <div id="heartContainer" class="tree-hearts"></div>
-    </div>
-    <div class="message-box" id="message">
-        Bấm vào trái tim đi nè 💕
+<!-- CÂY (KHÔNG CÓ STYLE INLINE NỮA) -->
+<div id="heartsPage" class="hidden">
+    <div style="display:flex;flex-direction:column;align-items:center;">
+        <div id="treeBox" class="tree hidden">
+            <div class="trunk"></div>
+            <div id="heartContainer" class="tree-hearts"></div>
+        </div>
+
+        <div class="message-box" id="message">
+            Bấm vào trái tim đi nè 💕
+        </div>
     </div>
 </div>
 
@@ -259,6 +255,7 @@ const start=document.getElementById("start");
 const letter=document.getElementById("letter");
 const heartsPage=document.getElementById("heartsPage");
 const finalPage=document.getElementById("finalPage");
+const treeBox=document.getElementById("treeBox");
 const noBtn=document.getElementById("noBtn");
 const yesBtn=document.getElementById("yesBtn");
 const heartContainer=document.getElementById("heartContainer");
@@ -291,6 +288,7 @@ function openLetter(){
 function nextPage(){
     letter.classList.add("hidden");
     heartsPage.classList.remove("hidden");
+    treeBox.classList.remove("hidden");   // 🌳 CÂY CHỈ XUẤT HIỆN Ở ĐÂY
     createHearts();
 }
 
@@ -321,11 +319,13 @@ function createHearts(){
                 message.innerText=wish;
                 heart.remove();
                 count++;
+
                 if(count===wishes.length){
+                    treeBox.classList.add("hidden"); // 🌳 BIẾN MẤT
                     setTimeout(()=>{
                         heartsPage.classList.add("hidden");
                         finalPage.classList.remove("hidden");
-                    },1000);
+                    },800);
                 }
             },1000);
         };
