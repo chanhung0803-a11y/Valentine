@@ -17,10 +17,9 @@ body{
     text-align:center;
     color:#fff;
 }
-
 .hidden{ display:none; }
 
-/* TIM RƠI */
+/* TIM RƠI NỀN */
 .fall-heart{
     position:fixed;
     top:-10px;
@@ -31,9 +30,7 @@ body{
     to{ transform:translateY(100vh); opacity:0; }
 }
 
-/* CÂU HỎI */
-#questionPage h2{ margin-bottom:15px; }
-
+/* BUTTON */
 button{
     padding:10px 25px;
     border:none;
@@ -43,7 +40,7 @@ button{
     transition:0.3s;
 }
 
-/* BAO THƯ ĐẸP */
+/* BAO THƯ */
 .envelope{
     width:380px;
     height:240px;
@@ -53,7 +50,6 @@ button{
     cursor:pointer;
     box-shadow:0 15px 35px rgba(0,0,0,0.3);
 }
-
 .envelope:before{
     content:"";
     position:absolute;
@@ -63,7 +59,6 @@ button{
     border-right:190px solid transparent;
     border-bottom:120px solid white;
 }
-
 .envelope .seal{
     position:absolute;
     top:-45px;
@@ -71,7 +66,6 @@ button{
     transform:translateX(-50%);
     font-size:40px;
 }
-
 .envelope-text{
     position:absolute;
     top:45%;
@@ -91,23 +85,84 @@ button{
     max-width:450px;
 }
 
-/* TRANG TIM */
-#heartContainer{
+/* ===== CÂY TÌNH YÊU ===== */
+
+.tree{
+    position:relative;
+    width:340px;
+    height:440px;
+}
+
+/* TÁN */
+.tree::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:300px;
+    height:230px;
+    background:radial-gradient(circle at 30% 30%, #5edc72, #2e8b57);
+    border-radius:50%;
+    box-shadow:0 20px 50px rgba(0,0,0,0.3);
+}
+
+/* THÂN */
+.trunk{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:50px;
+    height:210px;
+    background:linear-gradient(#8b5e3c,#5c3a21);
+    border-radius:25px;
+    box-shadow:inset -5px 0 10px rgba(0,0,0,0.3);
+}
+
+/* TIM TREO */
+.tree-hearts{
+    position:absolute;
+    top:40px;
+    left:50%;
+    transform:translateX(-50%);
+    width:260px;
+    height:180px;
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    gap:25px;
+    gap:30px;
+    align-items:flex-start;
 }
 
-.heart{
-    font-size:50px;
+.tree-heart{
+    font-size:45px;
     cursor:pointer;
+    animation:swing 3s infinite ease-in-out;
     transition:0.3s;
 }
-.heart:hover{ transform:scale(1.2); }
+.tree-heart:hover{ transform:scale(1.2); }
 
+@keyframes swing{
+    0%{ transform:rotate(-5deg); }
+    50%{ transform:rotate(5deg); }
+    100%{ transform:rotate(-5deg); }
+}
+
+/* RƠI */
+.fall-down{
+    animation:drop 1.3s forwards ease-in;
+}
+@keyframes drop{
+    to{
+        transform:translateY(260px);
+        opacity:0;
+    }
+}
+
+/* MESSAGE */
 .message-box{
-    margin-top:25px;
+    margin-top:20px;
     background:white;
     color:#ff4b7d;
     padding:15px;
@@ -133,7 +188,6 @@ button{
 <body>
 
 <script>
-/* TIM RƠI */
 function falling(){
     const h=document.createElement("div");
     h.innerHTML="💖";
@@ -148,10 +202,11 @@ setInterval(falling,500);
 
 <!-- CÂU HỎI -->
 <div id="questionPage">
+    <div style="font-size:90px;">😻</div>
     <h2>Ngọc có iuu Hưng hongg? 🥺💖</h2>
-    <div style="font-size:50px;">🐱 💕 🐱</div>
 
-    <button id="yesBtn" onclick="startProgram()" style="background:#28a745;color:white;">
+    <button id="yesBtn" onclick="startProgram()" 
+        style="background:#28a745;color:white;">
         CÓ 💚
     </button>
 
@@ -162,6 +217,11 @@ setInterval(falling,500);
 
 <!-- BAO THƯ -->
 <div id="start" class="hidden">
+    <div style="margin-bottom:25px;font-size:20px;">
+        hihi tui cũng iu Thảo Ngọc nhiều lắm 💕  
+        <br>Tui có món quà cho bn nè 🎁
+    </div>
+
     <div class="envelope" onclick="openLetter()">
         <div class="seal">💖</div>
         <div class="envelope-text">Mở thư nè iuu 💌</div>
@@ -177,13 +237,18 @@ setInterval(falling,500);
     </div>
 </div>
 
-<!-- TRANG TIM -->
-<div id="heartsPage" class="hidden">
-    <div id="heartContainer"></div>
-    <div class="message-box" id="message">Bấm vào trái tim đi nè 💕</div>
+<!-- CÂY TIM -->
+<div id="heartsPage" class="hidden" style="display:flex;flex-direction:column;align-items:center;">
+    <div class="tree">
+        <div class="trunk"></div>
+        <div id="heartContainer" class="tree-hearts"></div>
+    </div>
+    <div class="message-box" id="message">
+        Bấm vào trái tim đi nè 💕
+    </div>
 </div>
 
-<!-- TRANG KẾT -->
+<!-- KẾT -->
 <div id="finalPage" class="hidden">
     <div class="big-heart">💖</div>
     <p>
@@ -199,22 +264,27 @@ setInterval(falling,500);
 </div>
 
 <script>
-/* CÂU HỎI HIỆU ỨNG */
-let noCount=0;
-let yesScale=1;
-let noScale=1;
+const questionPage=document.getElementById("questionPage");
+const start=document.getElementById("start");
+const letter=document.getElementById("letter");
+const heartsPage=document.getElementById("heartsPage");
+const finalPage=document.getElementById("finalPage");
+const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
+const heartContainer=document.getElementById("heartContainer");
+const message=document.getElementById("message");
+
+let noCount=0, yesScale=1, noScale=1;
 
 function shrinkNo(){
     noCount++;
     noScale-=0.2;
     yesScale+=0.3;
-
     noBtn.style.transform=`scale(${noScale})`;
     yesBtn.style.transform=`scale(${yesScale})`;
-
     if(noCount>=4){
         noBtn.style.display="none";
-        yesBtn.style.transform="scale(3)";
+        yesBtn.style.transform="scale(1.8)";
     }
 }
 
@@ -223,7 +293,6 @@ function startProgram(){
     start.classList.remove("hidden");
 }
 
-/* FLOW CŨ */
 function openLetter(){
     start.classList.add("hidden");
     letter.classList.remove("hidden");
@@ -246,23 +315,31 @@ const wishes=[
 let count=0;
 
 function createHearts(){
+    count=0;
     heartContainer.innerHTML="";
+    message.innerText="Bấm vào trái tim đi nè 💕";
+
     wishes.forEach((wish)=>{
         let heart=document.createElement("div");
-        heart.className="heart";
+        heart.className="tree-heart";
         heart.innerHTML="❤️";
         heart.style.color=`hsl(${Math.random()*360},80%,60%)`;
+
         heart.onclick=function(){
-            message.innerText=wish;
-            heart.remove();
-            count++;
-            if(count===wishes.length){
-                setTimeout(()=>{
-                    heartsPage.classList.add("hidden");
-                    finalPage.classList.remove("hidden");
-                },1000);
-            }
+            heart.classList.add("fall-down");
+            setTimeout(()=>{
+                message.innerText=wish;
+                heart.remove();
+                count++;
+                if(count===wishes.length){
+                    setTimeout(()=>{
+                        heartsPage.classList.add("hidden");
+                        finalPage.classList.remove("hidden");
+                    },1000);
+                }
+            },1200);
         };
+
         heartContainer.appendChild(heart);
     });
 }
