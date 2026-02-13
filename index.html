@@ -18,6 +18,8 @@ body{
     color:#fff;
 }
 
+.hidden{ display:none; }
+
 /* TIM RƠI */
 .fall-heart{
     position:fixed;
@@ -29,18 +31,15 @@ body{
     to{ transform:translateY(100vh); opacity:0; }
 }
 
-/* Ẩn */
-.hidden{ display:none; }
-
 /* BAO THƯ */
 .envelope{
-    width:320px;
-    height:200px;
+    width:340px;
+    height:220px;
     background:linear-gradient(145deg,#fff,#ffe6ec);
     position:relative;
-    border-radius:10px;
+    border-radius:15px;
     cursor:pointer;
-    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+    box-shadow:0 15px 30px rgba(0,0,0,0.3);
     transition:0.5s;
 }
 .envelope:hover{ transform:scale(1.05); }
@@ -48,13 +47,11 @@ body{
 .envelope:before{
     content:"";
     position:absolute;
-    top:-100px;
+    top:-110px;
     left:0;
-    width:0;
-    height:0;
-    border-left:160px solid transparent;
-    border-right:160px solid transparent;
-    border-bottom:100px solid #fff;
+    border-left:170px solid transparent;
+    border-right:170px solid transparent;
+    border-bottom:110px solid #fff;
 }
 .envelope-text{
     position:absolute;
@@ -71,7 +68,7 @@ body{
     color:#ff4b7d;
     padding:40px;
     border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
 
 /* TRANG TIM */
@@ -100,37 +97,22 @@ body{
     box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* TRANG CUỐI */
-.final{
-    max-width:600px;
-}
-.big-heart{
-    font-size:120px;
-    animation:colorChange 2s infinite;
-}
-@keyframes colorChange{
-    0%{ color:#ff4b7d; }
-    25%{ color:#ff8fab; }
-    50%{ color:#ff6b81; }
-    75%{ color:#ff99c8; }
-    100%{ color:#ff4b7d; }
-}
-.signature{
-    margin-top:20px;
-    font-style:italic;
-}
+/* TRANG CÂU HỎI */
+.final{ max-width:600px; }
+
 button{
     padding:10px 20px;
     border:none;
     border-radius:20px;
     cursor:pointer;
+    font-size:18px;
 }
 </style>
 </head>
 <body>
 
-<!-- TIM RƠI LIÊN TỤC -->
 <script>
+/* TIM RƠI */
 function falling(){
     const h=document.createElement("div");
     h.innerHTML="💖";
@@ -165,18 +147,21 @@ setInterval(falling,500);
     <div class="message-box" id="message">Bấm vào trái tim đi nè 💕</div>
 </div>
 
-<!-- TRANG CUỐI -->
-<div id="finalPage" class="hidden final">
-    <div class="big-heart">💖</div>
-    <p>
-        Cảm ơn vì đã ở bên tui,  
-        cảm ơn vì đã làm thanh xuân này trở nên dịu dàng hơn.  
-        Tui hứa sẽ thương Thảo Ngọc thật nhiều,  
-        nhiều hơn hôm qua và càng nhiều hơn ngày mai 💕
-    </p>
-    <div class="signature">
-        Người yêu Thảo Ngọc nhất thế giới  
-        <br>Hồ Lê Chấn Hưng
+<!-- TRANG CÂU HỎI -->
+<div id="questionPage" class="hidden final">
+    <h2>Ngọc có iuu Hưng hongg? 🥺💖</h2>
+    <div style="font-size:50px;margin:10px 0;">🐱 💕 🐱</div>
+
+    <div style="margin-top:20px;">
+        <button id="yesBtn" onclick="sayYes()" 
+        style="background:#28a745;color:white;transition:0.3s;">
+        CÓ 💚
+        </button>
+
+        <button id="noBtn" onclick="sayNo()" 
+        style="margin-left:15px;transition:0.3s;">
+        KHÔNG 🙈
+        </button>
     </div>
 </div>
 
@@ -187,28 +172,16 @@ function openLetter(){
 }
 
 function nextPage(){
-    for(let i=0;i<40;i++){
-        let h=document.createElement("div");
-        h.innerHTML="💖";
-        h.style.position="fixed";
-        h.style.left=Math.random()*100+"vw";
-        h.style.top=Math.random()*100+"vh";
-        h.style.fontSize="40px";
-        document.body.appendChild(h);
-        setTimeout(()=>h.remove(),800);
-    }
-    setTimeout(()=>{
-        document.getElementById("letter").classList.add("hidden");
-        document.getElementById("heartsPage").classList.remove("hidden");
-        createHearts();
-    },700);
+    document.getElementById("letter").classList.add("hidden");
+    document.getElementById("heartsPage").classList.remove("hidden");
+    createHearts();
 }
 
 const wishes=[
 "🌸 14/2 vui vẻ nhoaaa, cảm ơn vì đã ở bên tui 💕",
-"🌷 Valentine này mong bạn luôn cười nhiều ✨",
-"💞 mong hai đứa mình có thể bên nhau thật lâu, thật thật lâu nhé.",
-"🌹 Chúc bạn một ngày thật ấm áp và nhiều yêu thương.",
+"🌷 Valentine này mong bạn luôn cười nhiều ✨", 
+"💞 mong hai đứa mình có thể bên nhau thật lâu, thật thật lâu nhé.", 
+"🌹 Chúc bạn một ngày thật ấm áp và nhiều yêu thương.", 
 "🌼 Dù không nói nhiều, nhưng tui thương bạn lắm đó."
 ];
 
@@ -228,12 +201,84 @@ function createHearts(){
             if(count===wishes.length){
                 setTimeout(()=>{
                     document.getElementById("heartsPage").classList.add("hidden");
-                    document.getElementById("finalPage").classList.remove("hidden");
-                },1500);
+                    document.getElementById("questionPage").classList.remove("hidden");
+                },1200);
             }
         };
         container.appendChild(heart);
     });
+}
+
+/* CÂU HỎI */
+let noCount=0;
+let yesScale=1;
+let noScale=1;
+
+function sayNo(){
+    noCount++;
+    noScale-=0.2;
+    yesScale+=0.3;
+
+    document.getElementById("noBtn").style.transform=`scale(${noScale})`;
+    document.getElementById("yesBtn").style.transform=`scale(${yesScale})`;
+
+    if(noCount>=4){
+        document.getElementById("noBtn").style.display="none";
+        document.getElementById("yesBtn").style.transform="scale(3)";
+    }
+}
+
+function sayYes(){
+    document.getElementById("questionPage").classList.add("hidden");
+    showBeautifulLetter();
+}
+
+/* LÁ THƯ ĐẸP */
+function showBeautifulLetter(){
+    const div=document.createElement("div");
+    div.innerHTML=`
+        <div style="position:relative;width:420px;margin:auto;">
+            <div style="
+                background:white;
+                padding:40px;
+                border-radius:20px;
+                box-shadow:0 10px 30px rgba(0,0,0,0.3);
+                position:relative;
+                color:#ff4b7d;
+            ">
+                <div style="
+                    position:absolute;
+                    top:-60px;
+                    left:50%;
+                    transform:translateX(-50%);
+                    width:0;
+                    height:0;
+                    border-left:60px solid transparent;
+                    border-right:60px solid transparent;
+                    border-top:60px solid white;
+                "></div>
+
+                <div style="
+                    position:absolute;
+                    top:-30px;
+                    left:50%;
+                    transform:translateX(-50%);
+                    font-size:40px;
+                ">💖</div>
+
+                <h2>Hưng hạnh phúc lắm 💕</h2>
+                <p>
+                Cảm ơn vì đã chọn Hưng.  
+                Từ giờ về sau, chỉ cần Ngọc ở đó,  
+                mọi thứ đều trở nên đặc biệt 💗
+                </p>
+
+                <br>
+                <button onclick="location.reload()">Xem lại từ đầu ✨</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(div);
 }
 </script>
 
