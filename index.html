@@ -17,6 +17,7 @@ body{
     text-align:center;
     color:#fff;
 }
+
 .hidden{ display:none; }
 
 /* TIM RƠI NỀN */
@@ -30,7 +31,6 @@ body{
     to{ transform:translateY(100vh); opacity:0; }
 }
 
-/* BUTTON */
 button{
     padding:10px 25px;
     border:none;
@@ -40,7 +40,8 @@ button{
     transition:0.3s;
 }
 
-/* BAO THƯ */
+/* ================= BAO THƯ ================= */
+
 .envelope{
     width:380px;
     height:240px;
@@ -48,121 +49,110 @@ button{
     border-radius:15px;
     position:relative;
     cursor:pointer;
+    border:2px solid black;
     box-shadow:0 15px 35px rgba(0,0,0,0.3);
 }
+
+/* TAM GIÁC NẰM TRONG */
 .envelope:before{
     content:"";
     position:absolute;
-    top:-120px;
+    top:0;
     left:0;
+    width:0;
+    height:0;
     border-left:190px solid transparent;
     border-right:190px solid transparent;
-    border-bottom:120px solid white;
+    border-top:120px solid #f5f5f5;
 }
-.envelope .seal{
-    position:absolute;
-    top:-45px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:40px;
-}
+
 .envelope-text{
     position:absolute;
-    top:45%;
+    top:55%;
     width:100%;
     color:#ff4b7d;
     font-weight:bold;
     font-size:20px;
 }
 
-/* LÁ THƯ */
+/* ================= LÁ THƯ ================= */
+
 .letter{
     background:white;
     color:#ff4b7d;
     padding:40px;
     border-radius:20px;
+    border:1px solid black;
     box-shadow:0 10px 30px rgba(0,0,0,0.3);
     max-width:450px;
 }
 
-/* ===== CÂY TÌNH YÊU ===== */
+/* ================= CÂY ================= */
 
 .tree{
     position:relative;
-    width:340px;
-    height:440px;
+    width:300px;
+    height:380px;
+    margin-top:10px;
 }
 
-/* TÁN */
+/* TÁN SÁT THÂN */
 .tree::before{
     content:"";
-    position:absolute;
-    top:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:300px;
-    height:230px;
-    background:radial-gradient(circle at 30% 30%, #5edc72, #2e8b57);
-    border-radius:50%;
-    box-shadow:0 20px 50px rgba(0,0,0,0.3);
-}
-
-/* THÂN */
-.trunk{
-    position:absolute;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:50px;
-    height:210px;
-    background:linear-gradient(#8b5e3c,#5c3a21);
-    border-radius:25px;
-    box-shadow:inset -5px 0 10px rgba(0,0,0,0.3);
-}
-
-/* TIM TREO */
-.tree-hearts{
     position:absolute;
     top:40px;
     left:50%;
     transform:translateX(-50%);
     width:260px;
+    height:200px;
+    background:radial-gradient(circle at 30% 30%, #5edc72, #2e8b57);
+    border-radius:50%;
+}
+
+/* THÂN SÁT LÁ */
+.trunk{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:45px;
     height:180px;
+    background:linear-gradient(#8b5e3c,#5c3a21);
+    border-radius:25px;
+}
+
+/* TIM TREO */
+.tree-hearts{
+    position:absolute;
+    top:80px;
+    left:50%;
+    transform:translateX(-50%);
+    width:220px;
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    gap:30px;
-    align-items:flex-start;
+    gap:25px;
 }
 
 .tree-heart{
-    font-size:45px;
+    font-size:42px;
     cursor:pointer;
-    animation:swing 3s infinite ease-in-out;
     transition:0.3s;
 }
-.tree-heart:hover{ transform:scale(1.2); }
 
-@keyframes swing{
-    0%{ transform:rotate(-5deg); }
-    50%{ transform:rotate(5deg); }
-    100%{ transform:rotate(-5deg); }
-}
-
-/* RƠI */
 .fall-down{
-    animation:drop 1.3s forwards ease-in;
+    animation:drop 1.2s forwards;
 }
 @keyframes drop{
     to{
-        transform:translateY(260px);
+        transform:translateY(200px);
         opacity:0;
     }
 }
 
 /* MESSAGE */
 .message-box{
-    margin-top:20px;
+    margin-top:15px;
     background:white;
     color:#ff4b7d;
     padding:15px;
@@ -171,7 +161,8 @@ button{
     width:320px;
 }
 
-/* TRANG KẾT */
+/* ================= KẾT ================= */
+
 .big-heart{
     font-size:120px;
     animation:colorChange 2s infinite;
@@ -202,7 +193,7 @@ setInterval(falling,500);
 
 <!-- CÂU HỎI -->
 <div id="questionPage">
-    <div style="font-size:90px;">😻</div>
+    <div style="font-size:80px;">🐱💕</div>
     <h2>Ngọc có iuu Hưng hongg? 🥺💖</h2>
 
     <button id="yesBtn" onclick="startProgram()" 
@@ -217,13 +208,12 @@ setInterval(falling,500);
 
 <!-- BAO THƯ -->
 <div id="start" class="hidden">
-    <div style="margin-bottom:25px;font-size:20px;">
+    <div style="margin-bottom:30px;font-size:20px;position:relative;z-index:2;">
         hihi tui cũng iu Thảo Ngọc nhiều lắm 💕  
         <br>Tui có món quà cho bn nè 🎁
     </div>
 
     <div class="envelope" onclick="openLetter()">
-        <div class="seal">💖</div>
         <div class="envelope-text">Mở thư nè iuu 💌</div>
     </div>
 </div>
@@ -237,7 +227,7 @@ setInterval(falling,500);
     </div>
 </div>
 
-<!-- CÂY TIM -->
+<!-- CÂY (CHỈ XUẤT HIỆN Ở ĐÂY) -->
 <div id="heartsPage" class="hidden" style="display:flex;flex-direction:column;align-items:center;">
     <div class="tree">
         <div class="trunk"></div>
@@ -337,7 +327,7 @@ function createHearts(){
                         finalPage.classList.remove("hidden");
                     },1000);
                 }
-            },1200);
+            },1000);
         };
 
         heartContainer.appendChild(heart);
